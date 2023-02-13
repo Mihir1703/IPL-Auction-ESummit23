@@ -1,18 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getData } from '../Util/Data'
+import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 
 const Navbar = () => {
+    const nav = useNavigate()
     const [data, setData] = useState(undefined)
-    const { id } = useParams()
+    const [change, setChange] = useState(false)
+    const [search, setSearch] = useState(0)
     useEffect(() => {
-        if (getData(id) === -1) window.location.replace('/')
+        if (getData(search) === -1) window.location.replace('/')
         else
-            setData(getData(id))
-    }, [])
+            setData(getData(search))
+    }, [change])
     return (
         <>
+            <nav
+                class="flex items-center justify-between flex-wrap bg-white py-4 lg:px-12 shadow border-solid border-t-2 ">
+                <div class="menu w-full lg:block flex-grow lg:flex lg:items-center lg:w-auto lg:px-3 px-8">
+                    <div class="relative mx-auto text-gray-600 lg:block hidden">
+                        <input onChange={(e) => { setSearch(e.target.value) }} class="border-2 border-gray-300 bg-white h-10 pl-2 pr-8 rounded-lg text-sm focus:outline-none"
+                            type="search" name="search" placeholder="Search" />
+                        <button type="submit" class="ml-2 bg-blue-600 p-2 rounded-md text-white" onClick={(e)=>{
+                            setChange(!change)
+                        }}>
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </nav>
             <header className="bg-gray-300 h-[100vh] grid justify-center items-center">
                 <div className="bg-gray-200 px-8 py-10 rounded-md grid-cols-2 gap-12 place-self-center flex items-center justify-center">
                     <div className="grid gap-10">

@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 
 const routes = {
-    '/:id': <><Navbar /></>,
+    '/': <><Navbar /></>,
 }
 
 const App = () => {
